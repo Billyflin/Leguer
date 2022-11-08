@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "93225826987",
+    "project_id": "app-leguer",
+    "storage_bucket": "app-leguer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:93225826987:android:28de58bce5c27a4d8e15ee",
+        "android_client_info": {
+          "package_name": "com.leguer.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "93225826987-ojfbom13tk4t97revnbg586c39us89lt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.leguer.app",
+            "certificate_hash": "26a22f24767e3c4cea24a455b8fad375357211db"
+          }
+        },
+        {
+          "client_id": "93225826987-daiv00g0g3in2kgpfq4eodobordvulut.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyZT7oh99qT-GFqdD159M-0so9swfvA_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "93225826987-daiv00g0g3in2kgpfq4eodobordvulut.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
