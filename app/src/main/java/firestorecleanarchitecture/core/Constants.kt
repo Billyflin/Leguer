@@ -23,4 +23,9 @@ object Constants {
     const val BOOK_TITLE = "Type a book title..."
     const val AUTHOR = "Type the author name..."
     const val NO_VALUE = ""
+
+    const val LOCAL_NAME = "Type the local name..."
+    const val LOCAL_CITY = "Type the local city..."
+    const val LOCAL_ADDRESS = "Type the local address..."
+    const val LOCAL_STATE = "Type the local state..."
 }

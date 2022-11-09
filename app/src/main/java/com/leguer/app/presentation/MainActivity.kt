@@ -12,6 +12,7 @@ import com.leguer.app.navigation.NavGraph
 import com.leguer.app.navigation.Screen.ProfileScreen
 import com.leguer.app.presentation.auth.AuthViewModel
 import com.leguer.app.presentation.books.BooksScreen
+import com.leguer.app.presentation.locales.LocalesScreen
 
 @AndroidEntryPoint
 @ExperimentalAnimationApi
@@ -34,7 +35,7 @@ class MainActivity : ComponentActivity() {
         if(viewModel.isUserAuthenticated) {
 //            navigateToProfileScreen()
             setContent {
-                BooksScreen()
+                LocalesScreen()
             }
         }
     }

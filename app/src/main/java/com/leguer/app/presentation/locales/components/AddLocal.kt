@@ -1,19 +1,19 @@
-package com.leguer.app.presentation.books.components
+package com.leguer.app.presentation.locales.components
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.leguer.app.presentation.locales.LocalesViewModel
 import firestorecleanarchitecture.components.ProgressBar
 import firestorecleanarchitecture.core.Utils.Companion.print
 import firestorecleanarchitecture.domain.model.Response.*
-import com.leguer.app.presentation.books.BooksViewModel
 
 @Composable
-fun DeleteBook(
-    viewModel: BooksViewModel = hiltViewModel()
+fun AddLocal(
+    viewModel: LocalesViewModel = hiltViewModel()
 ) {
-    when(val deleteBookResponse = viewModel.deleteBookResponse) {
+    when(val addBookResponse = viewModel.addLocalResponse) {
         is Loading -> ProgressBar()
         is Success -> Unit
-        is Failure -> print(deleteBookResponse.e)
+        is Failure -> print(addBookResponse.e)
     }
 }
