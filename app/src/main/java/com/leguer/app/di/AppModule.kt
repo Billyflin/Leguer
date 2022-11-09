@@ -19,12 +19,11 @@ import com.leguer.app.core.Constants.SIGN_IN_REQUEST
 import com.leguer.app.core.Constants.SIGN_UP_REQUEST
 import com.leguer.app.domain.repository.AuthRepository
 import com.leguer.app.domain.repository.BooksRepository
+import com.leguer.app.domain.repository.LocalesRepository
 import com.leguer.app.domain.repository.ProfileRepository
-import com.leguer.app.domain.use_case.AddBook
-import com.leguer.app.domain.use_case.DeleteBook
-import com.leguer.app.domain.use_case.GetBooks
-import com.leguer.app.domain.use_case.UseCases
+import com.leguer.app.domain.use_case.*
 import com.leguer.app.repository.BooksRepositoryImpl
+import com.leguer.app.repository.LocalesRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -57,51 +56,39 @@ class AppModule {
     @Named(SIGN_IN_REQUEST)
     fun provideSignInRequest(
         app: Application
-    ) = BeginSignInRequest.builder()
-        .setGoogleIdTokenRequestOptions(
-            BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                .setSupported(true)
-                .setServerClientId(app.getString(R.string.web_client_id))
-                .setFilterByAuthorizedAccounts(true)
-                .build())
-        .setAutoSelectEnabled(true)
-        .build()
+    ) = BeginSignInRequest.builder().setGoogleIdTokenRequestOptions(
+        BeginSignInRequest.GoogleIdTokenRequestOptions.builder().setSupported(true)
+            .setServerClientId(app.getString(R.string.web_client_id))
+            .setFilterByAuthorizedAccounts(true).build()
+    ).setAutoSelectEnabled(true).build()
 
     @Provides
     @Named(SIGN_UP_REQUEST)
     fun provideSignUpRequest(
         app: Application
-    ) = BeginSignInRequest.builder()
-        .setGoogleIdTokenRequestOptions(
-            BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                .setSupported(true)
-                .setServerClientId(app.getString(R.string.web_client_id))
-                .setFilterByAuthorizedAccounts(false)
-                .build())
-        .build()
+    ) = BeginSignInRequest.builder().setGoogleIdTokenRequestOptions(
+        BeginSignInRequest.GoogleIdTokenRequestOptions.builder().setSupported(true)
+            .setServerClientId(app.getString(R.string.web_client_id))
+            .setFilterByAuthorizedAccounts(false).build()
+    ).build()
 
     @Provides
     fun provideGoogleSignInOptions(
         app: Application
     ) = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestIdToken(app.getString(R.string.web_client_id))
-        .requestEmail()
-        .build()
+        .requestIdToken(app.getString(R.string.web_client_id)).requestEmail().build()
 
     @Provides
     fun provideGoogleSignInClient(
-        app: Application,
-        options: GoogleSignInOptions
+        app: Application, options: GoogleSignInOptions
     ) = GoogleSignIn.getClient(app, options)
 
     @Provides
     fun provideAuthRepository(
         auth: FirebaseAuth,
         oneTapClient: SignInClient,
-        @Named(SIGN_IN_REQUEST)
-        signInRequest: BeginSignInRequest,
-        @Named(SIGN_UP_REQUEST)
-        signUpRequest: BeginSignInRequest,
+        @Named(SIGN_IN_REQUEST) signInRequest: BeginSignInRequest,
+        @Named(SIGN_UP_REQUEST) signUpRequest: BeginSignInRequest,
         db: FirebaseFirestore
     ): AuthRepository = AuthRepositoryImpl(
         auth = auth,
@@ -118,29 +105,44 @@ class AppModule {
         signInClient: GoogleSignInClient,
         db: FirebaseFirestore
     ): ProfileRepository = ProfileRepositoryImpl(
-        auth = auth,
-        oneTapClient = oneTapClient,
-        signInClient = signInClient,
-        db = db
+        auth = auth, oneTapClient = oneTapClient, signInClient = signInClient, db = db
     )
 
 
+//
     @Provides
+    @Named("books")
     fun provideBooksRef(
         db: FirebaseFirestore
     ) = db.collection(Constants.BOOKS)
 
     @Provides
     fun provideBooksRepository(
-        booksRef: CollectionReference
+        @Named("books") booksRef: CollectionReference
     ): BooksRepository = BooksRepositoryImpl(booksRef)
 
     @Provides
     fun provideUseCases(
         repo: BooksRepository
     ) = UseCases(
-        getBooks = GetBooks(repo),
-        addBook = AddBook(repo),
-        deleteBook = DeleteBook(repo)
+        getBooks = GetBooks(repo), addBook = AddBook(repo), deleteBook = DeleteBook(repo)
+    )
+
+    @Provides
+    @Named("locales")
+    fun provideLocalRef(
+        db: FirebaseFirestore
+    ) = db.collection(Constants.LOCALES)
+
+    @Provides
+    fun provideLocalesRepository(
+        @Named("locales") localesRef: CollectionReference
+    ): LocalesRepository = LocalesRepositoryImpl(localesRef)
+
+    @Provides
+    fun provideUseCases2(
+        repo: LocalesRepository
+    ) = UseCases2(
+        getLocales = GetLocales(repo), addLocal = AddLocal(repo), deleteLocal = DeleteLocal(repo)
     )
 }

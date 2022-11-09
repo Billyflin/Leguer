@@ -12,11 +12,12 @@ import com.leguer.app.domain.repository.AddBookResponse
 import com.leguer.app.domain.repository.BooksRepository
 import com.leguer.app.domain.repository.DeleteBookResponse
 import javax.inject.Inject
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
 class BooksRepositoryImpl @Inject constructor(
-    private val booksRef: CollectionReference
+    @Named("books") private val booksRef: CollectionReference
 ): BooksRepository {
     override fun getBooksFromFirestore() = callbackFlow {
         val snapshotListener = booksRef.orderBy(TITLE).addSnapshotListener { snapshot, e ->

@@ -8,6 +8,9 @@ object Constants {
     const val BOOKS = "books"
     const val TITLE = "title"
 
+    const val LOCALES = "locales"
+    const val NAME = "name"
+
     //Actions
     const val ADD_BOOK = "Add a book"
     const val DELETE_BOOK = "Delete a book"
