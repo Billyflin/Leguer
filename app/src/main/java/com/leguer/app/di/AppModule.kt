@@ -10,6 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -17,11 +18,18 @@ import com.leguer.app.R
 import com.leguer.app.core.Constants.SIGN_IN_REQUEST
 import com.leguer.app.core.Constants.SIGN_UP_REQUEST
 import com.leguer.app.domain.repository.AuthRepository
+import com.leguer.app.domain.repository.BooksRepository
 import com.leguer.app.domain.repository.ProfileRepository
+import com.leguer.app.domain.use_case.AddBook
+import com.leguer.app.domain.use_case.DeleteBook
+import com.leguer.app.domain.use_case.GetBooks
+import com.leguer.app.domain.use_case.UseCases
+import com.leguer.app.repository.BooksRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import firestorecleanarchitecture.core.Constants
 import ro.alexmamo.firebasesigninwithgoogle.data.repository.AuthRepositoryImpl
 import ro.alexmamo.firebasesigninwithgoogle.data.repository.ProfileRepositoryImpl
 import javax.inject.Named
@@ -114,5 +122,25 @@ class AppModule {
         oneTapClient = oneTapClient,
         signInClient = signInClient,
         db = db
+    )
+
+
+    @Provides
+    fun provideBooksRef(
+        db: FirebaseFirestore
+    ) = db.collection(Constants.BOOKS)
+
+    @Provides
+    fun provideBooksRepository(
+        booksRef: CollectionReference
+    ): BooksRepository = BooksRepositoryImpl(booksRef)
+
+    @Provides
+    fun provideUseCases(
+        repo: BooksRepository
+    ) = UseCases(
+        getBooks = GetBooks(repo),
+        addBook = AddBook(repo),
+        deleteBook = DeleteBook(repo)
     )
 }

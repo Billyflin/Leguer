@@ -11,6 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import com.leguer.app.navigation.NavGraph
 import com.leguer.app.navigation.Screen.ProfileScreen
 import com.leguer.app.presentation.auth.AuthViewModel
+import com.leguer.app.presentation.books.BooksScreen
 
 @AndroidEntryPoint
 @ExperimentalAnimationApi
@@ -31,7 +32,10 @@ class MainActivity : ComponentActivity() {
 
     private fun checkAuthState() {
         if(viewModel.isUserAuthenticated) {
-            navigateToProfileScreen()
+//            navigateToProfileScreen()
+            setContent {
+                BooksScreen()
+            }
         }
     }
 
