@@ -15,8 +15,8 @@ import javax.inject.Singleton
 
 @Singleton
 class LocalesRepositoryImpl @Inject constructor(
-    @Named("locales") private val  localesRef: CollectionReference
-): LocalesRepository {
+    @Named("locales") private val localesRef: CollectionReference
+) : LocalesRepository {
     override fun getLocalesFromFirestore() = callbackFlow {
         val snapshotListener = localesRef.orderBy(NAME).addSnapshotListener { snapshot, e ->
             val localesResponse = if (snapshot != null) {
@@ -33,17 +33,19 @@ class LocalesRepositoryImpl @Inject constructor(
     }
 
 
-    override suspend fun addLocalToFirestore(name: String, address: String,lat: Double,long: Double,state: String,city: String): AddLocalResponse {
+    override suspend fun addLocalToFirestore(
+        name: String, address: String, lat: Double, long: Double, state: String, city: String
+    ): AddLocalResponse {
         return try {
             val id = localesRef.document().id
             val local = Local(
                 id = id,
-                name=name,
-                address=address,
-                state=state,
-                lat=lat ,
-                long=long,
-                city=city
+                name = name,
+                address = address,
+                state = state,
+                lat = lat,
+                long = long,
+                city = city
             )
             localesRef.document(id).set(local).await()
             Success(true)
