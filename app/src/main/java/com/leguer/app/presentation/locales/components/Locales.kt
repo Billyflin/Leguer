@@ -11,7 +11,7 @@ import com.leguer.app.presentation.locales.LocalesViewModel
 @Composable
 fun Locales(
     viewModel: LocalesViewModel = hiltViewModel(),
-    localesContent: @Composable (books: Locales) -> Unit
+    localesContent: @Composable (locales: Locales) -> Unit
 ) {
     when(val localesResponse = viewModel.localesResponse) {
         is Loading -> ProgressBar()
