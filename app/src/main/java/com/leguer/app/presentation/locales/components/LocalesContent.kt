@@ -3,15 +3,7 @@ package com.leguer.app.presentation.locales.components
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.util.Log
-import android.widget.Toast
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.model.BitmapDescriptor
@@ -46,13 +38,13 @@ fun LocalesContent(
 //    }
     locales.forEach {
 
-    Marker(
-        title = it.name, snippet = it.address, state = rememberMarkerState(
-            position = LatLng(it.lat!!, it.long!!)
-        ), icon = bitmapDescriptorFromVector(
-            context, R.drawable.ic_baseline_place_24
+        Marker(
+            title = it.name, snippet = it.address, state = rememberMarkerState(
+                position = LatLng(it.lat!!, it.long!!)
+            ), icon = bitmapDescriptorFromVector(
+                context, R.drawable.ic_baseline_place_24
+            )
         )
-    )
     }
 }
 

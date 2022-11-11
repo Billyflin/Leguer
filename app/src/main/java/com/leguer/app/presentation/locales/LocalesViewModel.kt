@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import firestorecleanarchitecture.domain.model.Response.Loading
@@ -27,6 +28,7 @@ class LocalesViewModel @Inject constructor(
         private set
     var openDialog by mutableStateOf(false)
         private set
+
 
     init {
         getLocales()

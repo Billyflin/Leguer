@@ -3,7 +3,6 @@ package com.leguer.app.presentation.locales.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
@@ -12,13 +11,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import firestorecleanarchitecture.core.Constants
 import kotlinx.coroutines.job
 
 @Composable
-fun AddLocalAlertDialog(
+fun AddLocalAlertDialog(lat1: Double, long1: Double,
     openDialog: Boolean,
     closeDialog: () -> Unit,
     addLocal: (name: String, address: String, lat: Double, long: Double, state: String, city: String) -> Unit
@@ -26,8 +24,6 @@ fun AddLocalAlertDialog(
     if (openDialog) {
         var name by remember { mutableStateOf(Constants.NO_VALUE) }
         var address by remember { mutableStateOf(Constants.NO_VALUE) }
-        var lat by remember { mutableStateOf(0.0) }
-        var long by remember { mutableStateOf(0.0) }
         var state by remember { mutableStateOf(Constants.NO_VALUE) }
         var city by remember { mutableStateOf(Constants.NO_VALUE) }
         val focusRequester = FocusRequester()
@@ -68,42 +64,42 @@ fun AddLocalAlertDialog(
                             )
                         }
                     )
-                    Spacer(
-                        modifier = Modifier.height(16.dp)
-                    )
-                    TextField(
-                        value = long.toString(),
-                        onValueChange = {
-                            if (it.isEmpty()){
-                                long = it.toDouble()
-                            } else {
-                                long = when (it.toDoubleOrNull()) {
-                                    null -> long //old value
-                                    else -> it.toDouble()   //new value
-                                }
-                            }
-                        },
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                    )
-                    Spacer(
-                        modifier = Modifier.height(16.dp)
-                    )
-                    TextField(
-                        value = lat.toString(),
-                        onValueChange = {
-                            if (it.isEmpty()){
-                                lat = it.toDouble()
-                            } else {
-                                lat = when (it.toDoubleOrNull()) {
-                                    null -> lat //old value
-                                    else -> it.toDouble()   //new value
-                                }
-                            }
-                        },
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                    )
+//                    Spacer(
+//                        modifier = Modifier.height(16.dp)
+//                    )
+//                    TextField(
+//                        value = long.toString(),
+//                        onValueChange = {
+//                            if (it.isEmpty()){
+//                                long = it.toDouble()
+//                            } else {
+//                                long = when (it.toDoubleOrNull()) {
+//                                    null -> long //old value
+//                                    else -> it.toDouble()   //new value
+//                                }
+//                            }
+//                        },
+//                        singleLine = true,
+//                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+//                    )
+//                    Spacer(
+//                        modifier = Modifier.height(16.dp)
+//                    )
+//                    TextField(
+//                        value = lat.toString(),
+//                        onValueChange = {
+//                            if (it.isEmpty()){
+//                                lat = it.toDouble()
+//                            } else {
+//                                lat = when (it.toDoubleOrNull()) {
+//                                    null -> lat //old value
+//                                    else -> it.toDouble()   //new value
+//                                }
+//                            }
+//                        },
+//                        singleLine = true,
+//                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+//                    )
                     Spacer(
                         modifier = Modifier.height(16.dp)
                     )
@@ -134,7 +130,7 @@ fun AddLocalAlertDialog(
                 TextButton(
                     onClick = {
                         closeDialog()
-                        addLocal(name,address,lat,long,state,city)
+                        addLocal(name, address, lat1, long1, state, city)
                     }
                 ) {
                     Text(
