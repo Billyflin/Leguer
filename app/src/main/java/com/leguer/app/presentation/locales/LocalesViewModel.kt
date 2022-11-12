@@ -5,15 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.maps.model.LatLng
+import com.leguer.app.domain.repository.AddLocalResponse
+import com.leguer.app.domain.repository.DeleteLocalResponse
+import com.leguer.app.domain.repository.LocalesResponse
+import com.leguer.app.domain.use_case.UseCases2
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import firestorecleanarchitecture.domain.model.Response.Loading
 import firestorecleanarchitecture.domain.model.Response.Success
-import com.leguer.app.domain.repository.AddLocalResponse
-import com.leguer.app.domain.repository.LocalesResponse
-import com.leguer.app.domain.repository.DeleteLocalResponse
-import com.leguer.app.domain.use_case.UseCases2
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -56,5 +55,6 @@ class LocalesViewModel @Inject constructor(
 
     fun closeDialog() {
         openDialog = false
+        getLocales()
     }
 }

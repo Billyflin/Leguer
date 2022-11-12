@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.util.Log
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Switch
 import androidx.compose.runtime.*
@@ -19,8 +18,10 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
 import com.leguer.app.R
-import com.leguer.app.presentation.locales.components.*
-import firestorecleanarchitecture.core.Constants
+import com.leguer.app.presentation.locales.components.AddLocal
+import com.leguer.app.presentation.locales.components.AddLocalAlertDialog
+import com.leguer.app.presentation.locales.components.DeleteLocal
+import com.leguer.app.presentation.locales.components.Locales
 
 @Composable
 fun LocalesScreen(
@@ -35,18 +36,14 @@ fun LocalesScreen(
     var lat by remember { mutableStateOf(0.0) }
     var long by remember { mutableStateOf(0.0) }
     var uiSettings by remember { mutableStateOf(MapUiSettings()) }
-    val properties by remember {
-        mutableStateOf(MapProperties(mapType = MapType.NORMAL, isMyLocationEnabled = false))
-    }
 
     Box(
         Modifier.fillMaxSize()
     ) {
         Locales() { locales4 ->
-            Log.d("Locales Change",locales4.toString())
+            Log.d("Locales Change", locales4.toString())
             GoogleMap(modifier = Modifier.fillMaxSize(),
                 uiSettings = uiSettings,
-                properties=properties,
                 cameraPositionState = cameraPositionState,
                 onMapLongClick = {
                     viewModel.openDialog()
@@ -54,14 +51,26 @@ fun LocalesScreen(
                     long = it.longitude
                 },
                 content = {
-                    locales4.forEach {
-                        Marker(
-                            title = it.name, snippet = it.address, state = rememberMarkerState(
-                                position = LatLng(it.lat!!, it.long!!)
-                            ), icon = bitmapDescriptorFromVector(
-                                context, R.drawable.ic_baseline_place_24
+                    locales4.forEach { local ->
+                        Marker(title = local.name, snippet = local.address, state = MarkerState(
+                            position = LatLng(local.lat!!, local.long!!)
+                        ), icon = if (local.state.equals("empty")) {
+                            bitmapDescriptorFromVector(
+                                context, R.drawable.ic_baseline_location_off_24
                             )
-                        )
+                        } else if (local.state.equals("full")) {
+                            bitmapDescriptorFromVector(
+                                context, R.drawable.ic_baseline_add_location_24
+                            )
+                        } else {
+                            bitmapDescriptorFromVector(context, R.drawable.ic_baseline_place_24)
+                        }, onInfoWindowLongClick = {
+                            local.id?.let { it1 ->
+                                viewModel.deleteBook(
+                                    it1
+                                )
+                            }
+                        })
                     }
                     AddLocalAlertDialog(lat,
                         long,
@@ -74,12 +83,9 @@ fun LocalesScreen(
                         })
                 })
         }
-        Switch(
-            checked = uiSettings.zoomControlsEnabled,
-            onCheckedChange = {
-                uiSettings = uiSettings.copy(zoomControlsEnabled = it)
-            }
-        )
+        Switch(checked = uiSettings.zoomControlsEnabled, onCheckedChange = {
+            uiSettings = uiSettings.copy(zoomControlsEnabled = it)
+        })
     }
     AddLocal()
     DeleteLocal()
