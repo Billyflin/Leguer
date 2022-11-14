@@ -16,12 +16,14 @@ import coil.request.ImageRequest
 
 @Composable
 fun ProfileContent(
-    padding: PaddingValues,
+//    padding: PaddingValues,
     photoUrl: String,
     displayName: String
 ) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(padding),
+        modifier = Modifier.fillMaxSize()
+//            .padding(padding)
+        ,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(

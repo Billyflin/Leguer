@@ -11,36 +11,36 @@ import com.leguer.app.navigation.Screen.AuthScreen
 import com.leguer.app.navigation.Screen.ProfileScreen
 import com.leguer.app.presentation.auth.AuthScreen
 import com.leguer.app.presentation.profile.ProfileScreen
+import com.leguer.app.ui.theme.LeguerTheme
 
 @Composable
 @ExperimentalAnimationApi
 fun NavGraph(
     navController: NavHostController
 ) {
-    AnimatedNavHost(
-        navController = navController,
-        startDestination = AuthScreen.route,
-        enterTransition = {EnterTransition.None },
-        exitTransition = { ExitTransition.None }
+    LeguerTheme(
     ) {
-        composable(
-            route = AuthScreen.route
-        ) {
-            AuthScreen(
-                navigateToProfileScreen = {
+        AnimatedNavHost(navController = navController,
+            startDestination = AuthScreen.route,
+            enterTransition = { EnterTransition.None },
+            exitTransition = { ExitTransition.None }) {
+            composable(
+                route = AuthScreen.route
+            ) {
+                AuthScreen(navigateToProfileScreen = {
                     navController.navigate(ProfileScreen.route)
+                })
+            }
+            composable(
+                route = ProfileScreen.route
+            ) {
+                LeguerTheme() {
+                    ProfileScreen(navigateToAuthScreen = {
+                        navController.popBackStack()
+                        navController.navigate(AuthScreen.route)
+                    })
                 }
-            )
-        }
-        composable(
-            route = ProfileScreen.route
-        ) {
-            ProfileScreen(
-                navigateToAuthScreen = {
-                    navController.popBackStack()
-                    navController.navigate(AuthScreen.route)
-                }
-            )
+            }
         }
     }
 }

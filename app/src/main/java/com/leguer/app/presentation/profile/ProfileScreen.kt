@@ -1,28 +1,29 @@
 package com.leguer.app.presentation.profile
 
-import androidx.compose.material.Scaffold
+import androidx.compose.material.*
 import androidx.compose.material.SnackbarResult.ActionPerformed
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 import com.leguer.app.core.Constants.REVOKE_ACCESS_MESSAGE
 import com.leguer.app.core.Constants.SIGN_OUT
+import com.leguer.app.presentation.locales.LocalesScreen
 import com.leguer.app.presentation.profile.components.ProfileContent
 import com.leguer.app.presentation.profile.components.ProfileTopBar
 import com.leguer.app.presentation.profile.components.RevokeAccess
 import com.leguer.app.presentation.profile.components.SignOut
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel = hiltViewModel(),
     navigateToAuthScreen: () -> Unit
 ) {
-    val scaffoldState = rememberScaffoldState()
+    val scaffoldState = rememberBottomSheetScaffoldState()
     val coroutineScope = rememberCoroutineScope()
 
-    Scaffold(
+    BottomSheetScaffold(
         topBar = {
             ProfileTopBar(
                 signOut = {
@@ -34,15 +35,16 @@ fun ProfileScreen(
             )
         },
         content = { padding ->
+            LocalesScreen(padding=padding)
+        },
+        scaffoldState = scaffoldState,
+        sheetContent = {
             ProfileContent(
-                padding = padding,
                 photoUrl = viewModel.photoUrl,
                 displayName = viewModel.displayName
             )
-        },
-        scaffoldState = scaffoldState
+        }
     )
-
     SignOut(
         navigateToAuthScreen = { signedOut ->
             if (signedOut) {
