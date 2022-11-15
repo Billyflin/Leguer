@@ -21,10 +21,12 @@ object Constants {
     const val SIGN_IN_WITH_GOOGLE = "Sign in with Google"
     const val SIGN_OUT = "Sign-out"
     const val REVOKE_ACCESS = "Revoke Access"
+    const val MOSTRAR_MARCADORES = "Mostrar Marcadores"
+    const val MOSTRAR_COMUNAS = "Mostrar Comunas"
 
     //Screens
     const val AUTH_SCREEN = "Authentication"
-    const val PROFILE_SCREEN = "Profile"
+    const val PROFILE_SCREEN = "Leguer"
 
     //Messages
     const val REVOKE_ACCESS_MESSAGE = "You need to re-authenticate before revoking the access."

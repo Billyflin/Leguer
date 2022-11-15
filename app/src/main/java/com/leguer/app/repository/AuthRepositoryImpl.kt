@@ -1,4 +1,4 @@
-package ro.alexmamo.firebasesigninwithgoogle.data.repository
+package com.leguer.app.repository
 
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient

@@ -29,7 +29,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import firestorecleanarchitecture.core.Constants
-import ro.alexmamo.firebasesigninwithgoogle.data.repository.AuthRepositoryImpl
+import com.leguer.app.repository.AuthRepositoryImpl
 import ro.alexmamo.firebasesigninwithgoogle.data.repository.ProfileRepositoryImpl
 import javax.inject.Named
 
