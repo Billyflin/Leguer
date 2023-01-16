@@ -31,7 +31,10 @@ import com.leguer.app.presentation.locales.components.Locales
 
 @Composable
 fun LocalesScreen(
-    viewModel: LocalesViewModel = hiltViewModel(), padding: PaddingValues,markerVisible:Boolean,comunaVisible:Boolean
+    viewModel: LocalesViewModel = hiltViewModel(),
+    padding: PaddingValues,
+    markerVisible:Boolean,
+    comunaVisible:Boolean
 ) {
     val initialZoom = 12f
     val destinationLatLng = LatLng(-33.437148, -70.632175)
@@ -79,7 +82,8 @@ fun LocalesScreen(
                                     it1
                                 )
                             }
-                        })
+                        }
+                    )
                 }
                 viewModel.comunas.forEach { punto ->
 //                    Log.d("local", locales4.toString())
@@ -93,7 +97,7 @@ fun LocalesScreen(
                             Toast.makeText(context, punto.name, Toast.LENGTH_SHORT).show()
                         },
                         clickable = true,
-                        strokeWidth = 0.7f
+                        strokeWidth = 2f
                     )
 
                 }
