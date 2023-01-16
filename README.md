@@ -1,6 +1,9 @@
 # Leguer!
 Esta es una App hecha en [Kotlin][1] que autentica usuarios con [Firebase][2] usando [Android Architecture Components][3] y una arquitectura MVVM. Para la UI usa [Jetpack Compose][7].
 
+# [Descarga][20]
+
+
 
 *[Descripción del proyecto](#Este proyecto iba a ser un catastro de el alcance que una empresa "Leguer" tenia en las comunas de santiago,
 y ofrecer en teimpo real un estado general de las ventas, y el alcance de sus productos en diferentes veterinarias y petshops de santiago,
@@ -42,3 +45,4 @@ el proyecto nunca vio la luz por falta de guia ya que esto nacio de una conversa
 [8]: https://kotlinlang.org/docs/coroutines-overview.html
 [9]: https://kotlinlang.org/docs/flow.html
 [12]: https://developer.android.com/guide/navigation
+[20]: https://github.com/Billyflin/Leguer/blob/master/app-debug.apk
